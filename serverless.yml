@@ -1,0 +1,21 @@
+service: api
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+
+functions:
+  updateFrequency:
+    handler: src/handlers/updateFrequency.handler
+    events:
+      - http:
+          path: /frequency
+          method: post
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-include-dependencies
