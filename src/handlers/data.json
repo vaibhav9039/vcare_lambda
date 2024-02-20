@@ -1,0 +1,996 @@
+{
+  "eventType": "INSERT",
+  "addresses": [
+    {
+      "reference": "Organization/f5200da9-55c0-4357-9f96-08fb09f43cd7",
+      "display": "Aman_DiabetesandHypertensionPlan"
+    }
+  ],
+  "goal": [
+    {
+      "reference": "Goal/f5200da9-55c0-4357-9f96-08fb09f43cd7"
+    }
+  ],
+  "activity": [
+    {
+      "outcomeCodeableConcept": [],
+      "outcomeReference": [],
+      "detail": {
+        "extension": [
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "hours",
+              "userSelected": true,
+              "display": "SleepUnit"
+            },
+            "valueString": "Sleep",
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "258158006"
+            }
+          ],
+          "text": "258158006"
+        },
+        "statusReason": {
+          "text": "Care Plan activity has been initiated"
+        },
+        "performer": [
+          {
+            "reference": "patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+            "display": "Aman K Jha"
+          }
+        ],
+        "scheduledTiming": {
+          "repeat": {
+            "period": 1,
+            "periodUnit": "d",
+            "frequency": 1
+          }
+        },
+        "description": "Aman_Sleep",
+        "location": {
+          "display": "Clinition CarePlan"
+        },
+        "doNotPerform": false,
+        "status": "in-progress"
+      }
+    },
+    {
+      "outcomeCodeableConcept": [],
+      "outcomeReference": [],
+      "detail": {
+        "extension": [
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "https://www.cordia360.com",
+              "userSelected": true,
+              "display": "https://www.cordia360.com"
+            },
+            "valueString": "link",
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "409073007"
+            }
+          ]
+        },
+        "statusReason": {
+          "text": "Care Plan activity has been initiated"
+        },
+        "performer": [
+          {
+            "reference": "patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+            "display": "Aman K Jha"
+          }
+        ],
+        "scheduledTiming": {
+          "repeat": {
+            "period": 1,
+            "periodUnit": "wk",
+            "frequency": 1
+          },
+          "event": ["2024-01-09T18:57:19.567Z"]
+        },
+        "description": "aman_instructionActivity",
+        "location": {
+          "display": "Clinition CarePlan"
+        },
+        "doNotPerform": false,
+        "status": "in-progress"
+      }
+    },
+    {
+      "outcomeCodeableConcept": [],
+      "outcomeReference": [],
+      "id": "4129cfd1-4a5d-4de1-ad9b-fc4827ae2510",
+      "detail": {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "Questionnaire"
+            }
+          ]
+        },
+        "statusReason": {
+          "text": "Care Plan activity has been initiated"
+        },
+        "performer": [
+          {
+            "reference": "patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+            "display": "Aman K Jha"
+          }
+        ],
+        "scheduledTiming": {
+          "repeat": {
+            "period": 1,
+            "periodUnit": "wk",
+            "frequency": 1
+          },
+          "event": ["2024-01-09T18:57:19.567Z"]
+        },
+        "description": "Aman_additionalQuetionnaireActivity",
+        "location": {
+          "display": "Clinition CarePlan"
+        },
+        "doNotPerform": false,
+        "status": "in-progress"
+      }
+    },
+    {
+      "outcomeCodeableConcept": [],
+      "outcomeReference": [],
+      "detail": {
+        "extension": [
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPsysUnit"
+            },
+            "valueString": "BPsysVLow",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 90
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 0
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPsysUnit"
+            },
+            "valueString": "BPsysLow",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 100
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 91
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPsysUnit"
+            },
+            "valueString": "BPsysNormal",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 140
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 101
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPsysUnit"
+            },
+            "valueString": "BPsysHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 170
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 141
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPsysUnit"
+            },
+            "valueString": "BPsysVHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 200
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 171
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPdiaUnit"
+            },
+            "valueString": "BPdiaVLow",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 60
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 0
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPdiaUnit"
+            },
+            "valueString": "BPdiaLow",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 70
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 61
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPdiaUnit"
+            },
+            "valueString": "BPdiaNormal",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 80
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 71
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPdiaUnit"
+            },
+            "valueString": "BPdiaHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 110
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 81
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mmHg",
+              "userSelected": true,
+              "display": "BPdiaUnit"
+            },
+            "valueString": "BPdiaVHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mmHg",
+                "value": 200
+              },
+              "low": {
+                "unit": "mmHg",
+                "value": 111
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "75367002"
+            }
+          ],
+          "text": "75367002"
+        },
+        "statusReason": {
+          "text": "Care Plan activity has been initiated"
+        },
+        "performer": [
+          {
+            "reference": "patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+            "display": "Aman K Jha"
+          }
+        ],
+        "scheduledTiming": {
+          "repeat": {
+            "period": 1,
+            "periodUnit": "wk",
+            "frequency": 1
+          }
+        },
+        "description": "Aman_BloodPressure",
+        "location": {
+          "display": "Clinition CarePlan"
+        },
+        "doNotPerform": false,
+        "status": "in-progress"
+      }
+    },
+    {
+      "outcomeCodeableConcept": [],
+      "outcomeReference": [],
+      "detail": {
+        "extension": [
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluFastUnit"
+            },
+            "valueString": "gluFastVLow",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 60
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 0
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluFastUnit"
+            },
+            "valueString": "gluFastLow",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 70
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 61
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluFastUnit"
+            },
+            "valueString": "gluFastNormal",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 140
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 71
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluFastUnit"
+            },
+            "valueString": "gluFastHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 200
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 141
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluFastUnit"
+            },
+            "valueString": "gluFastVHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 300
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 201
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "glucPPUnit"
+            },
+            "valueString": "glucPPVLow",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 60
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 0
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "glucPPUnit"
+            },
+            "valueString": "glucPPLow",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 70
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 61
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "glucPPUnit"
+            },
+            "valueString": "glucPPNormal",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 180
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 71
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "glucPPUnit"
+            },
+            "valueString": "glucPPHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 300
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 181
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "glucPPUnit"
+            },
+            "valueString": "glucPPVHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 400
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 301
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluRandUnit"
+            },
+            "valueString": "gluRandVLow",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 60
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 0
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluRandUnit"
+            },
+            "valueString": "gluRandLow",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 70
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 61
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluRandUnit"
+            },
+            "valueString": "gluRandNormal",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 180
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 71
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluRandUnit"
+            },
+            "valueString": "gluRandHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 300
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 181
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "mg/dL",
+              "userSelected": true,
+              "display": "gluRandUnit"
+            },
+            "valueString": "gluRandVHigh",
+            "valueRange": {
+              "high": {
+                "unit": "mg/dL",
+                "value": 400
+              },
+              "low": {
+                "unit": "mg/dL",
+                "value": 301
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "365811003"
+            }
+          ],
+          "text": "365811003"
+        },
+        "statusReason": {
+          "text": "Care Plan activity has been initiated"
+        },
+        "performer": [
+          {
+            "reference": "patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+            "display": "Aman K Jha"
+          }
+        ],
+        "scheduledTiming": {
+          "repeat": {
+            "period": 1,
+            "periodUnit": "d",
+            "frequency": 1
+          }
+        },
+        "description": "Aman_Glucose",
+        "location": {
+          "display": "Clinition CarePlan"
+        },
+        "doNotPerform": false,
+        "status": "in-progress"
+      }
+    },
+    {
+      "outcomeCodeableConcept": [],
+      "outcomeReference": [],
+      "detail": {
+        "extension": [
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "%",
+              "userSelected": true,
+              "display": "Hba1cUnit"
+            },
+            "valueString": "Hba1cNormal",
+            "valueRange": {
+              "high": {
+                "unit": "%",
+                "value": 7
+              },
+              "low": {
+                "unit": "%",
+                "value": 0
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "%",
+              "userSelected": true,
+              "display": "Hba1cUnit"
+            },
+            "valueString": "Hba1cHigh",
+            "valueRange": {
+              "high": {
+                "unit": "%",
+                "value": 7.5
+              },
+              "low": {
+                "unit": "%",
+                "value": 8
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          },
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "%",
+              "userSelected": true,
+              "display": "Hba1cUnit"
+            },
+            "valueString": "Hba1cVHigh",
+            "valueRange": {
+              "high": {
+                "unit": "%",
+                "value": 10
+              },
+              "low": {
+                "unit": "%",
+                "value": 8.5
+              }
+            },
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "313835008"
+            }
+          ],
+          "text": "313835008"
+        },
+        "statusReason": {
+          "text": "Care Plan activity has been initiated"
+        },
+        "performer": [
+          {
+            "reference": "patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+            "display": "Aman K Jha"
+          }
+        ],
+        "scheduledTiming": {
+          "repeat": {
+            "period": 1,
+            "periodUnit": "a",
+            "frequency": 1
+          }
+        },
+        "description": "Aman_HBA1C",
+        "location": {
+          "display": "Clinition CarePlan"
+        },
+        "doNotPerform": false,
+        "status": "in-progress"
+      }
+    },
+    {
+      "outcomeCodeableConcept": [],
+      "outcomeReference": [],
+      "detail": {
+        "extension": [
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "Kg",
+              "userSelected": true,
+              "display": "WeightUnit"
+            },
+            "valueString": "Weight",
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "27113001"
+            }
+          ],
+          "text": "27113001"
+        },
+        "statusReason": {
+          "text": "Care Plan activity has been initiated"
+        },
+        "performer": [
+          {
+            "reference": "patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+            "display": "Aman K Jha"
+          }
+        ],
+        "scheduledTiming": {
+          "repeat": {
+            "period": 1,
+            "periodUnit": "wk",
+            "frequency": 1
+          }
+        },
+        "description": "Aman_Weight",
+        "location": {
+          "display": "Clinition CarePlan"
+        },
+        "doNotPerform": false,
+        "status": "in-progress"
+      }
+    },
+    {
+      "outcomeCodeableConcept": [],
+      "outcomeReference": [],
+      "id": "a4d91246-f5cb-4f28-914b-f09056d78bba",
+      "detail": {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "Questionnaire"
+            }
+          ]
+        },
+        "statusReason": {
+          "text": "Care Plan activity has been initiated"
+        },
+        "performer": [
+          {
+            "reference": "patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+            "display": "Aman K Jha"
+          }
+        ],
+        "scheduledTiming": {
+          "repeat": {
+            "period": 1,
+            "periodUnit": "wk",
+            "frequency": 1
+          },
+          "event": ["2024-01-09T18:57:19.567Z"]
+        },
+        "description": "Aman_newQuestionnaireActivity",
+        "location": {
+          "display": "Clinition CarePlan"
+        },
+        "doNotPerform": false,
+        "status": "in-progress"
+      }
+    },
+    {
+      "outcomeCodeableConcept": [],
+      "outcomeReference": [],
+      "detail": {
+        "extension": [
+          {
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "minutes",
+              "userSelected": true,
+              "display": "ExerciseUnit"
+            },
+            "valueString": "Exercise",
+            "url": "http://example.com/fhir/StructureDefinition/customDescription"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "256235009"
+            }
+          ],
+          "text": "256235009"
+        },
+        "statusReason": {
+          "text": "Care Plan activity has been initiated"
+        },
+        "performer": [
+          {
+            "reference": "patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+            "display": "Aman K Jha"
+          }
+        ],
+        "scheduledTiming": {
+          "repeat": {
+            "period": 1,
+            "periodUnit": "d",
+            "frequency": 1
+          }
+        },
+        "description": "Aman_Exercise",
+        "location": {
+          "display": "Clinition CarePlan"
+        },
+        "doNotPerform": false,
+        "status": "in-progress"
+      }
+    }
+  ],
+  "author": {
+    "reference": "Practitioner/a6a57b0f-3c05-4df5-a54a-370cff39d1ed",
+    "display": "aanya"
+  },
+  "created": "2023-12-27T12:05:27.481Z",
+  "subject": {
+    "reference": "Patient/61b0162b-8971-44e9-83fc-77d6e54b0726",
+    "display": "Aman K Jha"
+  },
+  "encounter": {
+    "reference": "Encounter/home"
+  },
+  "title": "Aman_DiabetesandHypertensionPlan",
+  "intent": "plan",
+  "meta": {
+    "lastUpdated": "2024-01-09T18:57:20.676Z",
+    "versionId": "4"
+  },
+  "id": "6f35489f-0da2-4406-9f67-67dbe8a07ea8",
+  "category": [
+    {
+      "text": "Aman_DiabetesandHypertensionPlan"
+    }
+  ],
+  "careTeam": [
+    {
+      "reference": "CareTeam/7d1b652d-e4bb-4a27-9758-6e7920b1ae6d"
+    }
+  ],
+  "resourceType": "CarePlan",
+  "status": "active"
+}
