@@ -18,7 +18,8 @@
     "js-base64": "^3.7.5",
     "jsonwebtoken": "^9.0.2",
     "razorpay": "^2.9.2",
-    "serverless": "^3.38.0"
+    "serverless": "^3.38.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.114",
