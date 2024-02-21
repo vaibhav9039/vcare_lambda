@@ -67,7 +67,7 @@ async function updateUserFrequency(userFrequency) {
         }
     };
     try {
-        const userFrequencyResults = await dynamoDB.update(params.payload).promise();
+        const userFrequencyResults = await dynamoDB.put(params.payload).promise();
         console.log("User frequency saved successfully:", userFrequencyResults);
         return userFrequencyResults;
     } catch (error) {
