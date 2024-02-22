@@ -24,7 +24,7 @@ async function updatePatientGoalSettings(patientGoals) {
 }
 
 
-async function updateFsettings(fSettings) {
+async function insertFsettings(fSettings) {
     const params = {
         TableName: 'fSetting-boonxvym5fasde4r33wkfzd7yq-dev',
         Item: fSettings
@@ -35,24 +35,7 @@ async function updateFsettings(fSettings) {
         console.log("fSettings saved successfully:", data);
         return data;
     } catch (error) {
-        console.error("Error updating fSettings:", error);
-        throw error;
-    }
-}
-
-
-async function updateFrequencySettings(frequencySettings) {
-    const params = {
-        TableName: 'FrequencySettings-boonxvym5fasde4r33wkfzd7yq-dev',
-        Item: frequencySettings
-    };
-
-    try {
-        const data = await dynamoDB.put(params).promise();
-        console.log("frequencySettings updated successfully:", data);
-        return data;
-    } catch (error) {
-        console.error("Error updating frequencySettings:", error);
+        console.error("Error saving fSettings:", error);
         throw error;
     }
 }
@@ -76,51 +59,9 @@ async function updateUserFrequency(userFrequency) {
     }
 }
 
-
-async function extractAndSet(mapper) {
+async function insertFsettingWeight(mapper){
     const uuuid = mapper.subject
-    //for patientGoalSettings
-    let patientGoals = {
-        id: "",
-        goal_glucose_f_min : "",
-        goal_glucose_f_max : "",
-        goal_glucose_pp_min : "",
-        goal_glucose_pp_max : "",
-        goal_glucose_r_min : "",
-        goal_glucose_r_max : "",
-        goal_glucose_unit : "",
-        goal_glucose_state : "",
-        goal_bp_sys_min : "",
-        goal_bp_sys_max : "",
-        goal_bp_dis_min : "",
-        goal_bp_dis_max : "",
-        goal_bp_unit : "",
-        goal_bp_state : "",
-        goal_hba1c_min : "",
-        goal_hba1c_max : "",
-        goal_hba1c_unit : "",
-        goal_hba1c_state : "",
-        goal_max_target_weight : "",
-        goal_min_target_weight : "",
-        target_weight_goal_date : "",
-        weight_unit : "",
-        goal_target_sleep_min : "",
-        goal_target_sleep_max : "",
-        target_sleep_goal_date : "",
-        sleep_unit : "",
-        goal_target_excercise_min : "",
-        goal_target_excercise_max : "",
-        target_excercise_goal_date : "",
-        excercise_unit : "",
-    }
-    let frequencySettings = {
-        id: "",
-        isNotificationOn: false, 
-        type: "",                
-        weekDays: [],           
-        time: "",                
-        version: 0 
-    }
+    const randomSixDigitString = Math.floor(100000 + Math.random() * 900000).toString();
     let fSettings = {
         id: "",
         userFrequencyID: "",
@@ -130,24 +71,217 @@ async function extractAndSet(mapper) {
         time: "",
         extraData: ""
     }
+    fSettings.userFrequencyID = uuuid
+    for (const key in mapper) {
+        if (mapper.hasOwnProperty(key)) {
+            if (key === "27113001") {
+                const element = mapper[key];
+                for (const elements of element) {
+                    let type = "Weight";
+                    if (elements.valueString === "Weight") {
+                        if (elements && elements.scheduledTiming) {
+                            let period = elements.scheduledTiming.repeat.period;
+                            let periodUnit = elements.scheduledTiming.repeat.periodUnit;
+                            let frequency = elements.scheduledTiming.repeat.frequency;
+                            let event = elements.scheduledTiming.event
+                            const weightSettings = getSettings(type, period, periodUnit, frequency);
+                            if (weightSettings) {
+                                fSettings.id = randomSixDigitString;
+                                fSettings.isNotificationOn = weightSettings.isNotificationOn;
+                                fSettings.type = type;
+                                fSettings.weekDays = weightSettings.weekDays;
+                                fSettings.time = weightSettings.time;
+                                // fSettings.extraData = JSON.stringify(bpSettings.extraData);
+                                await insertFsettings(fSettings);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    console.log("fsettings for weight ", fSettings)
+}
+async function insertFsettingsHba1c(mapper) {
+    const uuuid = mapper.subject
+    const randomSixDigitString = Math.floor(100000 + Math.random() * 900000).toString();
+    let fSettings = {
+        id: "",
+        userFrequencyID: "",
+        isNotificationOn: false,
+        type: "",
+        weekDays: [],
+        time: "",
+        extraData: ""
+    }
+    fSettings.userFrequencyID = uuuid
+    for (const key in mapper) {
+        if (mapper.hasOwnProperty(key)) {
+            if (key === "313835008") {
+                const element = mapper[key];
+                for (const elements of element) {
+                    let type = "Hba1c";
+                    if (elements.valueString === "Hba1cNormal") {
+                        if (elements && elements.scheduledTiming) {
+                            let period = elements.scheduledTiming.repeat.period;
+                            let periodUnit = elements.scheduledTiming.repeat.periodUnit;
+                            let frequency = elements.scheduledTiming.repeat.frequency;
+                            let event = elements.scheduledTiming.event
+                            const hba1cSettings = getSettings(type, period, periodUnit, frequency);
+                            if (hba1cSettings) {
+                                fSettings.id = randomSixDigitString;
+                                fSettings.isNotificationOn = hba1cSettings.isNotificationOn;
+                                fSettings.type = type;
+                                fSettings.weekDays = hba1cSettings.weekDays;
+                                fSettings.time = hba1cSettings.time;
+                                // fSettings.extraData = JSON.stringify(bpSettings.extraData);
+                                await insertFsettings(fSettings);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    console.log("fsetting for hba1c ", fSettings)
+}
+
+async function insertFsettingGlucose(mapper) {
+    const uuuid = mapper.subject
+    const randomSixDigitString = Math.floor(100000 + Math.random() * 900000).toString();
+    let fSettings = {
+        id: "",
+        userFrequencyID: "",
+        isNotificationOn: false,
+        type: "",
+        weekDays: [],
+        time: "",
+        extraData: ""
+    }
+    fSettings.userFrequencyID = uuuid
+    for (const key in mapper) {
+        if (mapper.hasOwnProperty(key)) {
+            if (key === "365811003") {
+                const element = mapper[key];
+                for (const elements of element) {
+                    let type = "Glucose"
+                    if (elements.valueString === "gluFastNormal" || elements.valueString === "glucPPNormal" || elements.valueString === "gluRandNormal") {
+                        if (elements && elements.scheduledTiming) {
+                            console.log(elements.scheduledTiming)
+                            let period = elements.scheduledTiming.repeat.period;
+                            let periodUnit = elements.scheduledTiming.repeat.periodUnit;
+                            let frequency = elements.scheduledTiming.repeat.frequency;
+                            let event = elements.scheduledTiming.event
+                            const glucoseSettings = getSettings(type, period, periodUnit, frequency);
+                            if (glucoseSettings){
+                                fSettings.id = randomSixDigitString;
+                                fSettings.isNotificationOn = glucoseSettings.isNotificationOn;
+                                fSettings.type = type;
+                                fSettings.weekDays = glucoseSettings.weekDays;
+                                fSettings.time = glucoseSettings.time;
+                                await insertFsettings(fSettings);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    console.log("fsettings for glucose ", fSettings)
+}
+async function insertFsettingBP(mapper) {
+    const uuuid = mapper.subject
+    const randomSixDigitString = Math.floor(100000 + Math.random() * 900000).toString();
+    let fSettings = {
+        id: "",
+        userFrequencyID: "",
+        isNotificationOn: false,
+        type: "",
+        weekDays: [],
+        time: "",
+        extraData: ""
+    }
+    fSettings.userFrequencyID = uuuid
+    for (const key in mapper) {
+        if (mapper.hasOwnProperty(key)) {
+            if (key === "75367002") {
+                const element = mapper[key];
+                for (const elements of element) {
+                    let type = "Blood Pressure";
+                    if (elements.valueString === "BPsysNormal" || elements.valueString === "BPdiaNormal") {
+                        if (elements && elements.scheduledTiming) {
+                            let period = elements.scheduledTiming.repeat.period;
+                            let periodUnit = elements.scheduledTiming.repeat.periodUnit;
+                            let frequency = elements.scheduledTiming.repeat.frequency;
+                            let event = elements.scheduledTiming.event
+                            const bpSettings = getSettings(type, period, periodUnit, frequency);
+                            if (bpSettings) {
+                                fSettings.id = randomSixDigitString;
+                                fSettings.isNotificationOn = bpSettings.isNotificationOn;
+                                fSettings.type = type;
+                                fSettings.weekDays = bpSettings.weekDays;
+                                fSettings.time = bpSettings.time;
+                                await insertFsettings(fSettings);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    console.log("fsettings for blood pressure ", fSettings)
+}
+async function insertUserFrequency(mapper) {
+    const uuuid = mapper.subject
+
     let userFrequencySave = {
         id: "",
         createdAt: ""
     }
     const currentDateAndTime = new Date().toISOString(); // Get current date and time in ISO format
     userFrequencySave.id = uuuid
-    userFrequencySave.createdAt = currentDateAndTime 
-    patientGoals.id = uuuid
-    fSettings.userFrequencyID = uuuid
-    try{
-        const result = await updateUserFrequency(userFrequencySave);
-        console.log("User frequency saved successfully:", result) 
-    }catch(e){
-        console.error("Error saved user frequency:", e);
-    }
+    userFrequencySave.createdAt = currentDateAndTime
+    await updateUserFrequency(userFrequencySave);
+    console.log("User frequency saved successfully:", userFrequencySave)
+}
 
-    // console.log(uuuid)
-    // fSettings.userFrequencyID = uuuid;
+async function extractAndSetPatientGoals(mapper) {
+    const uuuid = mapper.subject
+    //for patientGoalSettings
+    let patientGoals = {
+        id: "",
+        goal_glucose_f_min: "",
+        goal_glucose_f_max: "",
+        goal_glucose_pp_min: "",
+        goal_glucose_pp_max: "",
+        goal_glucose_r_min: "",
+        goal_glucose_r_max: "",
+        goal_glucose_unit: "",
+        goal_glucose_state: "",
+        goal_bp_sys_min: "",
+        goal_bp_sys_max: "",
+        goal_bp_dis_min: "",
+        goal_bp_dis_max: "",
+        goal_bp_unit: "",
+        goal_bp_state: "",
+        goal_hba1c_min: "",
+        goal_hba1c_max: "",
+        goal_hba1c_unit: "",
+        goal_hba1c_state: "",
+        goal_max_target_weight: "",
+        goal_min_target_weight: "",
+        target_weight_goal_date: "",
+        weight_unit: "",
+        goal_target_sleep_min: "",
+        goal_target_sleep_max: "",
+        target_sleep_goal_date: "",
+        sleep_unit: "",
+        goal_target_excercise_min: "",
+        goal_target_excercise_max: "",
+        target_excercise_goal_date: "",
+        excercise_unit: "",
+    }
+    patientGoals.id = uuuid
     for (const key in mapper) {
         if (mapper.hasOwnProperty(key)) {
             console.log(key)
@@ -163,31 +297,10 @@ async function extractAndSet(mapper) {
                             let frequency = elements.scheduledTiming.repeat.frequency;
                             const hba1cSettings = getSettings(type, period, periodUnit, frequency);
                             if (hba1cSettings) {
-                                const randomId = uuidv4();
                                 patientGoals.goal_hba1c_max = elements.valueRange.high.value;
                                 patientGoals.goal_hba1c_min = elements.valueRange.low.value;
                                 patientGoals.goal_hba1c_unit = elements.valueRange.low.unit
-                                frequencySettings.isNotificationOn = hba1cSettings.isNotificationOn;
-                                frequencySettings.weekDays = hba1cSettings.weekDays
-                                frequencySettings.type = type;
-                                frequencySettings.id = randomId
-                                fSettings.id = randomId
-                                fSettings.type = type;
-                                fSettings.isNotificationOn = hba1cSettings.isNotificationOn;
-                                fSettings.weekDays = hba1cSettings.weekDays
                             }
-                            try {
-                                const resultFSettings = await updateFsettings(fSettings);
-                                console.log("fSettings saved successfully:", resultFSettings);
-
-                                // Update frequencySettings
-                                const resultFrequencySettings = await updateFrequencySettings(frequencySettings);
-                                console.log("frequencySettings saved successfully:", resultFrequencySettings);
-                            } catch (error) {
-                                console.log("error in saving ", error)
-                            }
-                            console.log("fSettings are ", fSettings)
-                            console.log("frequencySettings are", frequencySettings)
                         }
                     }
                 }
@@ -206,38 +319,16 @@ async function extractAndSet(mapper) {
                             const bpSettings = getSettings(type, period, periodUnit, frequency);
                             if (bpSettings) {
                                 const randomId = uuidv4();
-                                if (elements.valueString === "BPdiaNormal"){
+                                if (elements.valueString === "BPdiaNormal") {
                                     patientGoals.goal_bp_dis_max = elements.valueRange.high.value
                                     patientGoals.goal_bp_dis_min = elements.valueRange.low.value
                                 }
-                                if (elements.valueString === "BPsysNormal"){
+                                if (elements.valueString === "BPsysNormal") {
                                     patientGoals.goal_bp_sys_min = elements.valueRange.high.value;
-                                    patientGoals.goal_bp_sys_max = elements.valueRange.low.value;                                    
+                                    patientGoals.goal_bp_sys_max = elements.valueRange.low.value;
                                 }
                                 patientGoals.goal_bp_unit = elements.valueRange.low.unit
-                                frequencySettings.weekDays = bpSettings.weekDays;
-                                frequencySettings.isNotificationOn = bpSettings.isNotificationOn;
-                                frequencySettings.type = type;
-                                frequencySettings.time = bpSettings.time
-                                frequencySettings.id = randomId
-                                fSettings.id = randomId
-                                fSettings.type = type;
-                                fSettings.isNotificationOn = bpSettings.isNotificationOn;
-                                fSettings.weekDays = bpSettings.weekDays;
-                                fSettings.time = bpSettings.time
                             }
-                            try {
-                                const resultFSettings = await updateFsettings(fSettings);
-                                console.log("fSettings saved successfully:", resultFSettings);
-
-                                // Update frequencySettings
-                                const resultFrequencySettings = await updateFrequencySettings(frequencySettings);
-                                console.log("frequencySettings saved successfully:", resultFrequencySettings);
-                            } catch (error) {
-                                console.log("error in saving ", error)
-                            }
-                            console.log("fSettings are ", fSettings)
-                            console.log("frequencySettings are", frequencySettings)
                         }
                     }
                 }
@@ -257,100 +348,135 @@ async function extractAndSet(mapper) {
                             const glucoseSettings = getSettings(type, period, periodUnit, frequency);
                             if (glucoseSettings) {
                                 const randomId = uuidv4();
-                                if (elements.valueString === "gluRandNormal"){
+                                if (elements.valueString === "gluRandNormal") {
                                     patientGoals.goal_glucose_r_max = elements.valueRange.high.value
                                     patientGoals.goal_glucose_r_min = elements.valueRange.low.value
                                 }
-                                if (elements.valueString === "glucPPNormal"){
-                                    patientGoals.goal_glucose_pp_max = elements.valueRange.high.value 
+                                if (elements.valueString === "glucPPNormal") {
+                                    patientGoals.goal_glucose_pp_max = elements.valueRange.high.value
                                     patientGoals.goal_glucose_pp_min = elements.valueRange.low.value
                                 }
-                                if (elements.valueString === "gluFastNormal"){
+                                if (elements.valueString === "gluFastNormal") {
                                     patientGoals.goal_glucose_f_min = elements.valueRange.high.value;
                                     patientGoals.goal_glucose_f_max = elements.valueRange.low.value;
                                 }
                                 patientGoals.goal_glucose_unit = elements.valueRange.low.unit
-                                frequencySettings.isNotificationOn = glucoseSettings.isNotificationOn;
-                                frequencySettings.weekDays = glucoseSettings.weekDays
-                                frequencySettings.type = type;
-                                frequencySettings.time = glucoseSettings.time
-                                frequencySettings.id = randomId
-                                fSettings.id = randomId
-                                fSettings.type = type;
-                                fSettings.isNotificationOn = glucoseSettings.isNotificationOn;
-                                fSettings.time = glucoseSettings.time
-                                fSettings.weekDays = glucoseSettings.weekDays
                             }
-                            try {
-                                const resultFSettings = await updateFsettings(fSettings);
-                                console.log("fSettings saved successfully:", resultFSettings);
-
-                                // Update frequencySettings
-                                const resultFrequencySettings = await updateFrequencySettings(frequencySettings);
-                                console.log("frequencySettings saved successfully:", resultFrequencySettings);
-                            } catch (error) {
-                                console.log("error in saving ", error)
-                            }
-                            console.log("fSettings are ", fSettings)
-                            console.log("frequencySettings are", frequencySettings)
                         }
                     }
                 }
             }
-            if (key === "27113001"){
+            // if (key === "27113001") {
+            //     const element = mapper[key];
+            //     for (const elements of element) {
+            //         if (elements.valueString === "Weight") {
+            //             let type = "Weight";
+            //             if (elements && elements.scheduledTiming) {
+            //                 console.log(elements.scheduledTiming)
+            //                 let period = elements.scheduledTiming.repeat.period;
+            //                 let periodUnit = elements.scheduledTiming.repeat.periodUnit;
+            //                 let frequency = elements.scheduledTiming.repeat.frequency;
+            //                 const weightSettings = getSettings(type, period, periodUnit, frequency);
+            //                 if (weightSettings) {
+            //                 }
+
+            //             }
+            //         }
+            //     }
+            // }
+        }
+    }
+
+    await updatePatientGoalSettings(patientGoals)
+    console.log("Patient goals saved ", patientGoals);
+}
+async function insertFsettingsExercise(mapper){
+    const uuuid = mapper.subject
+    const randomSixDigitString = Math.floor(100000 + Math.random() * 900000).toString();
+    let fSettings = {
+        id: "",
+        userFrequencyID: "",
+        isNotificationOn: false,
+        type: "",
+        weekDays: [],
+        time: "",
+        extraData: ""
+    }
+    fSettings.userFrequencyID = uuuid
+    for (const key in mapper) {
+        if (mapper.hasOwnProperty(key)) {
+            if (key === "256235009") {
                 const element = mapper[key];
-                for(const elements of element){
-                    if(elements.valueString === "Weight"){
-                        let type = "Weight";
-                        if(elements && elements.scheduledTiming){
-                            console.log(elements.scheduledTiming) 
+                for (const elements of element) {
+                    let type = "Exercise";
+                    if (elements.valueString === "Exercise") {
+                        if (elements && elements.scheduledTiming) {
                             let period = elements.scheduledTiming.repeat.period;
                             let periodUnit = elements.scheduledTiming.repeat.periodUnit;
                             let frequency = elements.scheduledTiming.repeat.frequency;
-                            const weightSettings = getSettings(type, period, periodUnit, frequency);
-                            if (weightSettings) {
-                                const randomId = uuidv4();
-                                frequencySettings.isNotificationOn = weightSettings.isNotificationOn;
-                                frequencySettings.weekDays = weightSettings.weekDays
-                                frequencySettings.type = type;
-                                frequencySettings.time = weightSettings.time
-                                frequencySettings.id = randomId
-                                fSettings.id = randomId
+                            let event = elements.scheduledTiming.event
+                            const excerciseSettings = getSettings(type, period, periodUnit, frequency);
+                            if (excerciseSettings) {
+                                fSettings.id = randomSixDigitString;
+                                fSettings.isNotificationOn = excerciseSettings.isNotificationOn;
                                 fSettings.type = type;
-                                fSettings.isNotificationOn = weightSettings.isNotificationOn;
-                                fSettings.time = weightSettings.time
-                                fSettings.weekDays = weightSettings.weekDays
+                                fSettings.weekDays = excerciseSettings.weekDays;
+                                fSettings.time = excerciseSettings.time;
+                                // fSettings.extraData = JSON.stringify(bpSettings.extraData);
+                                await insertFsettings(fSettings);
                             }
-                            try {
-                                const resultFSettings = await updateFsettings(fSettings);
-                                console.log("fSettings saved successfully:", resultFSettings);
-
-                                // Update frequencySettings
-                                const resultFrequencySettings = await updateFrequencySettings(frequencySettings);
-                                console.log("frequencySettings saved successfully:", resultFrequencySettings);
-                            } catch (error) {
-                                console.log("error in saving ", error )
-                            }
-                            console.log("fSettings are ", fSettings)
-                            console.log("frequencySettings are", frequencySettings)
                         }
                     }
                 }
             }
         }
     }
-    try {
-        const result = await updatePatientGoalSettings(patientGoals)
-        console.log("Patient goals saved ", result);
-    } catch (error) {
-        console.error("Error updating patient goals", error);
-    }
-
-    
-    console.log("userFrequencySettings are", userFrequencySave)
-    console.log("patientGoals are ",patientGoals)
+    console.log("fsetting for exercise ", fSettings)
 }
 
+async function insertFsettingSleep(mapper){
+    const uuuid = mapper.subject
+    const randomSixDigitString = Math.floor(100000 + Math.random() * 900000).toString();
+    let fSettings = {
+        id: "",
+        userFrequencyID: "",
+        isNotificationOn: false,
+        type: "",
+        weekDays: [],
+        time: "",
+        extraData: ""
+    }
+    fSettings.userFrequencyID = uuuid
+    for (const key in mapper) {
+        if (mapper.hasOwnProperty(key)) {
+            if (key === "258158006") {
+                const element = mapper[key];
+                for (const elements of element) {
+                    let type = "Sleep";
+                    if (elements.valueString === "Sleep") {
+                        if (elements && elements.scheduledTiming) {
+                            let period = elements.scheduledTiming.repeat.period;
+                            let periodUnit = elements.scheduledTiming.repeat.periodUnit;
+                            let frequency = elements.scheduledTiming.repeat.frequency;
+                            let event = elements.scheduledTiming.event
+                            const sleepSettings = getSettings(type, period, periodUnit, frequency);
+                            if (sleepSettings) {
+                                fSettings.id = randomSixDigitString;
+                                fSettings.isNotificationOn = sleepSettings.isNotificationOn;
+                                fSettings.type = type;
+                                fSettings.weekDays = sleepSettings.weekDays;
+                                fSettings.time = sleepSettings.time;
+                                // fSettings.extraData = JSON.stringify(bpSettings.extraData);
+                                await insertFsettings(fSettings);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    console.log("fsetting for sleep ", fSettings)
+}
 
 
 exports.handler = async (event, context) => {
@@ -421,7 +547,22 @@ exports.handler = async (event, context) => {
                 console.log("No care plan found");
             }
 
-            await extractAndSet(mapper);
+            const patientGoalsresult = await extractAndSetPatientGoals(mapper);
+            // console.log("Patient goals result is", patientGoalsresult);
+            const userFrequncyResult = await insertUserFrequency(mapper)
+            // console.log("User frequency result is", userFrequncyResult);
+            const fsettingsHba1cResutl = await insertFsettingsHba1c(mapper)
+            // console.log("Fsettings Hba1c result is", fsettingsHba1cResutl);
+            const fsettingsBpResult = await insertFsettingBP(mapper)
+            // console.log("Fsettings Bp result is", fsettingsBpResult);
+            const fsettingsGlucoseResult = await insertFsettingGlucose(mapper)
+            // console.log("Fsettings Glucose result is", fsettingsGlucoseResult);
+            const fsettingsWeightReuslt = await insertFsettingWeight(mapper)
+            // console.log("Fsettings Weight result is", fsettingsWeightReuslt);
+            const fsettingsExcersiseResult = await insertFsettingsExercise(mapper)
+            // console.log("Fsettings Exercise result is", fsettingsExcersiseResult);
+            const fsettingsleepResult = await insertFsettingSleep(mapper)
+            // console.log("Fsettings Sleep result is", fsettingsleepResult);
             // console.log("mapper is", JSON.stringify(mapper, null, 2));
         } else {
             console.log("No events found");

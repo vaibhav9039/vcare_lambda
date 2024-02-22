@@ -1,38 +1,47 @@
 function getGlucoseSettings(period, periodUnit, frequency) {
     if (period === 1 && periodUnit === 'd' && frequency === 1) {
+        const settingsTime = "07:00:00"
+        const targetDate = new Date();
+        const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
         return {
-            weekDays: ["Daily"],
+            weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             isNotificationOn: true,
-            time: "07:00:00"
+            time: combinedDateTime.toISOString()
         };
     } else if (period === 1 && periodUnit === 'wk') {
         if (frequency === 1) {
+            const settingsTime = "07:00:00"
+            const targetDate = new Date();
+            const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
             return {
-                weekDays: ["Sunday"],
+                weekDays: ["Sun"],
                 isNotificationOn: true,
-                time: "07:00:00"
+                time: combinedDateTime.toISOString()
             };
         } else if (frequency === 2) {
+            const settingsTime = "07:00:00"
+            const targetDate = new Date();
+            const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
             return {
-                weekDays: ["Sunday", "Wednesday"],
+                weekDays: ["Sun", "Wed"],
                 isNotificationOn: true,
-                time: "07:00:00"
+                time: combinedDateTime.toISOString()
             };
         } else if (frequency === 3) {
             return {
-                weekDays: ["Sunday", "Wednesday", "Friday"],
+                weekDays: ["Sun", "Wed", "Fri"],
                 isNotificationOn: true,
                 time: ["07:00:00", "16:00:00"]
             };
         } else if (frequency === 4) {
             return {
-                weekDays: ["Sunday", "Tuesday", "Thursday", "Saturday"],
+                weekDays: ["Sun", "Tue", "Thu", "Sat"],
                 isNotificationOn: true,
                 time: ["07:00:00", "16:00:00"]
             };
         } else if (frequency === 5) {
             return {
-                weekDays: ["Sunday", "Monday", "Wednesday", "Friday", "Saturday"],
+                weekDays: ["Sun", "Mon", "Wed", "Fri", "Sat"],
                 isNotificationOn: true,
                 time: ["07:00:00", "16:00:00", "20:00:00"]
             };
@@ -44,42 +53,51 @@ function getGlucoseSettings(period, periodUnit, frequency) {
 function getBloodPressureSettings(period, periodUnit, frequency) {
     if (period === 1 && periodUnit === 'wk') {
         if (frequency === 1) {
+            const settingsTime = "07:30:00";
+            const targetDate = new Date();
+            const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
             return {
-                weekDays: ["Sunday"],
+                weekDays: ["Sun"],
                 isNotificationOn: true,
-                time: "07:30:00"
+                time: combinedDateTime.toISOString()
             };
         } else if (frequency === 2) {
+            const settingsTime = "07:30:00";
+            const targetDate = new Date();
+            const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
             return {
-                weekDays: ["Sunday", "Wednesday"],
+                weekDays: ["Sun", "Wed"],
                 isNotificationOn: true,
-                time: "07:30:00"
+                time: combinedDateTime.toISOString()
             };
         } else if (frequency === 3) {
             return {
-                weekDays: ["Sunday", "Wednesday", "Friday"],
+                weekDays: ["Sun", "Wed", "Fri"],
                 isNotificationOn: true,
                 time: ["07:30:00", "16:00:00"]
             };
         } else if (frequency === 4) {
             return {
-                weekDays: ["Sunday", "Tuesday", "Thursday", "Saturday"],
+                weekDays: ["Sun", "Tue", "Thu", "Sat"],
                 isNotificationOn: true,
                 time: ["07:30:00", "16:00:00"]
             };
         } else if (frequency === 5) {
             return {
-                weekDays: ["Sunday", "Monday", "Wednesday", "Friday", "Saturday"],
+                weekDays: ["Sun", "Mon", "Wed", "Fri", "Sat"],
                 isNotificationOn: true,
                 time: ["07:30:00", "16:00:00", "20:00:00"]
             };
         }
     } else if (period === 1 && periodUnit === "d") {
         if (frequency === 1) {
+            const settingsTime = "07:30:00";
+            const targetDate = new Date();
+            const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
             return {
-                weekDays: ["Daily"],
+                weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                 isNotificationOn: true,
-                time: "07:30:00"
+                time: combinedDateTime.toISOString()
             };
         }
     }
@@ -89,10 +107,13 @@ function getBloodPressureSettings(period, periodUnit, frequency) {
 
 function getHba1cSettings(period, periodUnit, frequency) {
     if (period === 1 && periodUnit === 'a' && frequency === 1) {
+        const settingsTime = "07:30:00";
+        const targetDate = new Date();
+        const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
         return {
-            weekDays: ["Monday"],
+            weekDays: ["Mon"],
             isNotificationOn: true,
-            time: "07:30:00"
+            time: combinedDateTime.toISOString()
         };
     }
     return null;
@@ -100,16 +121,22 @@ function getHba1cSettings(period, periodUnit, frequency) {
 
 function getWeightSettings(period, periodUnit, frequency) {
     if (period === 1 && periodUnit === "wk" && frequency === 1) {
+        const settingsTime = "08:00:00";
+        const targetDate = new Date();
+        const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
         return {
-            weekDays: ["Sunday"],
+            weekDays: ["Sun"],
             isNotificationOn: true,
-            time: "08:00:00"
+            time: combinedDateTime.toISOString()
         };
     } else if ((period === 1 && periodUnit === "mo" || periodUnit === "15days") && frequency === 1) {
+        const settingsTime = "08:00:00";
+        const targetDate = new Date();
+        const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
         return {
-            weekDays: ["Sunday"],
+            weekDays: ["Sun"],
             isNotificationOn: true,
-            time: "08:00:00"
+            time: combinedDateTime.toISOString()
         };
     }
     return null;
@@ -117,10 +144,14 @@ function getWeightSettings(period, periodUnit, frequency) {
 
 function getExerciseSettings(period, periodUnit, frequency) {
     if (period === 1 && periodUnit === "d" && frequency === 1) {
+        const settingsTime = "08:00:00"; 
+        const targetDate = new Date();
+        const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
+
         return {
-            weekDays: ["Daily"],
+            weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             isNotificationOn: true,
-            time: "08:00:00"
+            time: combinedDateTime.toISOString()
         };
     }
     return null;
@@ -128,10 +159,14 @@ function getExerciseSettings(period, periodUnit, frequency) {
 
 function getSleepSettings(period, periodUnit, frequency) {
     if (period === 1 && periodUnit === "d" && frequency === 1) {
+        const settingsTime = "08:00:00"; 
+        const targetDate = new Date();
+        const combinedDateTime = combineDateAndTime(settingsTime, targetDate);
+
         return {
-            weekDays: ["Daily"],
+            weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             isNotificationOn: true,
-            time: "08:00:00"
+            time: combinedDateTime.toISOString()
         };
     }
     return null;
@@ -154,6 +189,17 @@ function getSettings(type, period, periodUnit, frequency) {
         default:
             return null;
     }
+}
+function combineDateAndTime(settingsTime, targetDate) {
+    const [hours, minutes, seconds] = settingsTime.split(':').map(Number);
+
+    const targetDateTime = new Date(targetDate);
+
+    targetDateTime.setHours(hours);
+    targetDateTime.setMinutes(minutes);
+    targetDateTime.setSeconds(seconds);
+
+    return targetDateTime;
 }
 
 module.exports = {
