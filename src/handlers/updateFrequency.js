@@ -120,7 +120,7 @@ async function insertFsettingsHba1c(mapper) {
             if (key === "313835008") {
                 const element = mapper[key];
                 for (const elements of element) {
-                    let type = "Hba1c";
+                    let type = "HbA1C";
                     if (elements.valueString === "Hba1cNormal") {
                         if (elements && elements.scheduledTiming) {
                             let period = elements.scheduledTiming.repeat.period;
@@ -164,7 +164,7 @@ async function insertFsettingGlucose(mapper) {
             if (key === "365811003") {
                 const element = mapper[key];
                 for (const elements of element) {
-                    let type = "Glucose"
+                    let type = "Blood sugar"
                     if (elements.valueString === "gluFastNormal" || elements.valueString === "glucPPNormal" || elements.valueString === "gluRandNormal") {
                         if (elements && elements.scheduledTiming) {
                             console.log(elements.scheduledTiming)
@@ -290,7 +290,7 @@ async function extractAndSetPatientGoals(mapper) {
                 // console.log(element)
                 for (const elements of element) {
                     if (elements.valueString === "Hba1cNormal") {
-                        let type = "Hba1c"
+                        let type = "HbA1C"
                         if (elements && elements.scheduledTiming && elements.scheduledTiming.repeat) {
                             let period = elements.scheduledTiming.repeat.period;
                             let periodUnit = elements.scheduledTiming.repeat.periodUnit;
@@ -300,6 +300,7 @@ async function extractAndSetPatientGoals(mapper) {
                                 patientGoals.goal_hba1c_max = elements.valueRange.high.value;
                                 patientGoals.goal_hba1c_min = elements.valueRange.low.value;
                                 patientGoals.goal_hba1c_unit = elements.valueRange.low.unit
+                                patientGoals.goal_hba1c_state = hba1cSettings.state
                             }
                         }
                     }
@@ -328,6 +329,7 @@ async function extractAndSetPatientGoals(mapper) {
                                     patientGoals.goal_bp_sys_max = elements.valueRange.low.value;
                                 }
                                 patientGoals.goal_bp_unit = elements.valueRange.low.unit
+                                patientGoals.goal_bp_state = bpSettings.state 
                             }
                         }
                     }
@@ -338,7 +340,7 @@ async function extractAndSetPatientGoals(mapper) {
                 // console.log(element)
                 for (const elements of element) {
                     if (elements.valueString === "gluFastNormal" || elements.valueString === "glucPPNormal" || elements.valueString === "gluRandNormal") {
-                        let type = "Glucose"
+                        let type = "Blood sugar"
                         if (elements && elements.scheduledTiming) {
                             console.log(elements.scheduledTiming)
                             let period = elements.scheduledTiming.repeat.period;
@@ -361,29 +363,73 @@ async function extractAndSetPatientGoals(mapper) {
                                     patientGoals.goal_glucose_f_max = elements.valueRange.low.value;
                                 }
                                 patientGoals.goal_glucose_unit = elements.valueRange.low.unit
+                                patientGoals.goal_glucose_state = glucoseSettings.state
                             }
                         }
                     }
                 }
             }
-            // if (key === "27113001") {
-            //     const element = mapper[key];
-            //     for (const elements of element) {
-            //         if (elements.valueString === "Weight") {
-            //             let type = "Weight";
-            //             if (elements && elements.scheduledTiming) {
-            //                 console.log(elements.scheduledTiming)
-            //                 let period = elements.scheduledTiming.repeat.period;
-            //                 let periodUnit = elements.scheduledTiming.repeat.periodUnit;
-            //                 let frequency = elements.scheduledTiming.repeat.frequency;
-            //                 const weightSettings = getSettings(type, period, periodUnit, frequency);
-            //                 if (weightSettings) {
-            //                 }
-
-            //             }
-            //         }
-            //     }
-            // }
+            if (key === "27113001") {
+                const element = mapper[key];
+                for (const elements of element) {
+                    if (elements.valueString === "Weight") {
+                        let type = "Weight";
+                        if (elements && elements.scheduledTiming) {
+                            console.log(elements.scheduledTiming)
+                            let period = elements.scheduledTiming.repeat.period;
+                            let periodUnit = elements.scheduledTiming.repeat.periodUnit;
+                            let frequency = elements.scheduledTiming.repeat.frequency;
+                            const weightSettings = getSettings(type, period, periodUnit, frequency);
+                            if (weightSettings) {
+                                // patientGoals.goal_max_target_weight = elements.valueRange.high.value
+                                // patientGoals.goal_min_target_weight = elements.valueRange.low.value
+                                patientGoals.weight_unit = weightSettings.unit
+                            }
+                        }
+                    }
+                }
+            }
+            if (key === "258158006"){
+                const element = mapper[key]
+                for(const elements of element){
+                    if(elements.valueString === "Sleep"){
+                        let type = "Sleep";
+                        if(elements && elements.scheduledTiming){
+                            console.log(elements.scheduledTiming)
+                            let period = elements.scheduledTiming.repeat.period;
+                            let periodUnit = elements.scheduledTiming.repeat.periodUnit;
+                            let frequency = elements.scheduledTiming.repeat.frequency;
+                            let event = elements.scheduledTiming.event
+                            const sleepSettings = getSettings(type, period, periodUnit, frequency);
+                            if(sleepSettings){
+                                // patientGoals.goal_target_sleep_min = elements.valueRange.high.value
+                                // patientGoals.goal_target_sleep_max = elements.valueRange.low.value
+                                patientGoals.sleep_unit = sleepSettings.unit
+                            }
+                        }
+                    }
+                }
+            }
+            if (key === "256235009"){
+                const element = mapper[key];
+                for(const elements of element){
+                    if(elements.valueString === "Exercise"){
+                        let type = "Exercise";
+                        if(elements && elements.scheduledTiming){
+                            console.log(elements.scheduledTiming)
+                            let period = elements.scheduledTiming.repeat.period;
+                            let periodUnit = elements.scheduledTiming.repeat.periodUnit;
+                            let frequency = elements.scheduledTiming.repeat.frequency;
+                            let event = elements.scheduledTiming.event
+                            const excerciseSettings = getSettings(type, period, periodUnit, frequency);
+                            if(excerciseSettings){
+                                
+                                patientGoals.excercise_unit = excerciseSettings.unit
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

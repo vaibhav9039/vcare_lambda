@@ -6,7 +6,8 @@ function getGlucoseSettings(period, periodUnit, frequency) {
         return {
             weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             isNotificationOn: true,
-            time: combinedDateTime.toISOString()
+            time: combinedDateTime.toISOString(),
+            state: "created"
         };
     } else if (period === 1 && periodUnit === 'wk') {
         if (frequency === 1) {
@@ -16,7 +17,8 @@ function getGlucoseSettings(period, periodUnit, frequency) {
             return {
                 weekDays: ["Sun"],
                 isNotificationOn: true,
-                time: combinedDateTime.toISOString()
+                time: combinedDateTime.toISOString(),
+                state: "created"
             };
         } else if (frequency === 2) {
             const settingsTime = "07:00:00"
@@ -25,25 +27,29 @@ function getGlucoseSettings(period, periodUnit, frequency) {
             return {
                 weekDays: ["Sun", "Wed"],
                 isNotificationOn: true,
-                time: combinedDateTime.toISOString()
+                time: combinedDateTime.toISOString(),
+                state: "created"
             };
         } else if (frequency === 3) {
             return {
                 weekDays: ["Sun", "Wed", "Fri"],
                 isNotificationOn: true,
-                time: ["07:00:00", "16:00:00"]
+                time: ["07:00:00", "16:00:00"],
+                state: "created"
             };
         } else if (frequency === 4) {
             return {
                 weekDays: ["Sun", "Tue", "Thu", "Sat"],
                 isNotificationOn: true,
-                time: ["07:00:00", "16:00:00"]
+                time: ["07:00:00", "16:00:00"],
+                state: "created"
             };
         } else if (frequency === 5) {
             return {
                 weekDays: ["Sun", "Mon", "Wed", "Fri", "Sat"],
                 isNotificationOn: true,
-                time: ["07:00:00", "16:00:00", "20:00:00"]
+                time: ["07:00:00", "16:00:00", "20:00:00"],
+                state: "created"
             };
         }
     }
@@ -59,7 +65,8 @@ function getBloodPressureSettings(period, periodUnit, frequency) {
             return {
                 weekDays: ["Sun"],
                 isNotificationOn: true,
-                time: combinedDateTime.toISOString()
+                time: combinedDateTime.toISOString(),
+                state: "created"
             };
         } else if (frequency === 2) {
             const settingsTime = "07:30:00";
@@ -68,25 +75,29 @@ function getBloodPressureSettings(period, periodUnit, frequency) {
             return {
                 weekDays: ["Sun", "Wed"],
                 isNotificationOn: true,
-                time: combinedDateTime.toISOString()
+                time: combinedDateTime.toISOString(),
+                state: "created"
             };
         } else if (frequency === 3) {
             return {
                 weekDays: ["Sun", "Wed", "Fri"],
                 isNotificationOn: true,
-                time: ["07:30:00", "16:00:00"]
+                time: ["07:30:00", "16:00:00"],
+                state: "created"
             };
         } else if (frequency === 4) {
             return {
                 weekDays: ["Sun", "Tue", "Thu", "Sat"],
                 isNotificationOn: true,
-                time: ["07:30:00", "16:00:00"]
+                time: ["07:30:00", "16:00:00"],
+                state: "created"
             };
         } else if (frequency === 5) {
             return {
                 weekDays: ["Sun", "Mon", "Wed", "Fri", "Sat"],
                 isNotificationOn: true,
-                time: ["07:30:00", "16:00:00", "20:00:00"]
+                time: ["07:30:00", "16:00:00", "20:00:00"],
+                state: "created"
             };
         }
     } else if (period === 1 && periodUnit === "d") {
@@ -97,7 +108,8 @@ function getBloodPressureSettings(period, periodUnit, frequency) {
             return {
                 weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                 isNotificationOn: true,
-                time: combinedDateTime.toISOString()
+                time: combinedDateTime.toISOString(),
+                state: "created"
             };
         }
     }
@@ -113,7 +125,8 @@ function getHba1cSettings(period, periodUnit, frequency) {
         return {
             weekDays: ["Mon"],
             isNotificationOn: true,
-            time: combinedDateTime.toISOString()
+            time: combinedDateTime.toISOString(),
+            state: "created"
         };
     }
     return null;
@@ -127,7 +140,8 @@ function getWeightSettings(period, periodUnit, frequency) {
         return {
             weekDays: ["Sun"],
             isNotificationOn: true,
-            time: combinedDateTime.toISOString()
+            time: combinedDateTime.toISOString(),
+            unit: "Kg"
         };
     } else if ((period === 1 && periodUnit === "mo" || periodUnit === "15days") && frequency === 1) {
         const settingsTime = "08:00:00";
@@ -136,7 +150,8 @@ function getWeightSettings(period, periodUnit, frequency) {
         return {
             weekDays: ["Sun"],
             isNotificationOn: true,
-            time: combinedDateTime.toISOString()
+            time: combinedDateTime.toISOString(),
+            unit: "Kg"
         };
     }
     return null;
@@ -151,7 +166,8 @@ function getExerciseSettings(period, periodUnit, frequency) {
         return {
             weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             isNotificationOn: true,
-            time: combinedDateTime.toISOString()
+            time: combinedDateTime.toISOString(),
+            unit: "Hrs"
         };
     }
     return null;
@@ -166,7 +182,8 @@ function getSleepSettings(period, periodUnit, frequency) {
         return {
             weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             isNotificationOn: true,
-            time: combinedDateTime.toISOString()
+            time: combinedDateTime.toISOString(),
+            unit: "Hrs"
         };
     }
     return null;
@@ -174,11 +191,11 @@ function getSleepSettings(period, periodUnit, frequency) {
 
 function getSettings(type, period, periodUnit, frequency) {
     switch (type) {
-        case "Glucose":
+        case "Blood sugar":
             return getGlucoseSettings(period, periodUnit, frequency);
         case "Blood Pressure":
             return getBloodPressureSettings(period, periodUnit, frequency);
-        case "Hba1c":
+        case "HbA1C":
             return getHba1cSettings(period, periodUnit, frequency);
         case "Weight":
             return getWeightSettings(period, periodUnit, frequency);
