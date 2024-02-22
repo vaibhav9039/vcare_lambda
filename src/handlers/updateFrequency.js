@@ -7,7 +7,7 @@ const uuidcrypto = require("crypto");
 const { getSettings } = require('./settings');
 const { v4: uuidv4 } = require('uuid');
 
-async function updatePatientGoalSettings(patientGoals) {
+async function patientGoalSettings(patientGoals) {
     const params = {
         TableName: 'patientGoalSettings-boonxvym5fasde4r33wkfzd7yq-dev',
         Item: patientGoals,
@@ -22,9 +22,106 @@ async function updatePatientGoalSettings(patientGoals) {
         throw error;
     }
 }
+async function getPatientGoalSettings(patientGoals){
+    const params = {
+        TableName: 'patientGoalSettings-boonxvym5fasde4r33wkfzd7yq-dev',
+        Key: { id: patientGoals.id },
+    }
 
+    try {
+        const data = await dynamoDB.get(params).promise();
+        console.log("Patient goal settings retrieved successfully:", data);
+        if(data && data.Item){
+            return true;
+        }else {
+            return false;
+        }
+    } catch (error) {
+        console.error("Error retrieving patient goal settings:", error);
+        throw error;
+    }
+}
 
-async function insertFsettings(fSettings) {
+async function updatePatientGoalSettings(patientGoals){
+    const params = {
+        TableName: 'patientGoalSettings-boonxvym5fasde4r33wkfzd7yq-dev',
+        Key: { id: patientGoals.id },
+        UpdateExpression: `set 
+            goal_glucose_f_min = :goal_glucose_f_min,
+            goal_glucose_f_max = :goal_glucose_f_max,
+            goal_glucose_pp_min = :goal_glucose_pp_min,
+            goal_glucose_pp_max = :goal_glucose_pp_max,
+            goal_glucose_r_min = :goal_glucose_r_min,
+            goal_glucose_r_max = :goal_glucose_r_max,
+            goal_glucose_unit = :goal_glucose_unit,
+            goal_glucose_state = :goal_glucose_state,
+            goal_bp_sys_min = :goal_bp_sys_min,
+            goal_bp_sys_max = :goal_bp_sys_max,
+            goal_bp_dis_min = :goal_bp_dis_min,
+            goal_bp_dis_max = :goal_bp_dis_max,
+            goal_bp_unit = :goal_bp_unit,
+            goal_bp_state = :goal_bp_state,
+            goal_hba1c_min = :goal_hba1c_min,
+            goal_hba1c_max = :goal_hba1c_max,
+            goal_hba1c_unit = :goal_hba1c_unit,
+            goal_hba1c_state = :goal_hba1c_state,
+            goal_max_target_weight = :goal_max_target_weight,
+            goal_min_target_weight = :goal_min_target_weight,
+            target_weight_goal_date = :target_weight_goal_date,
+            weight_unit = :weight_unit,
+            goal_target_sleep_min = :goal_target_sleep_min,
+            goal_target_sleep_max = :goal_target_sleep_max,
+            target_sleep_goal_date = :target_sleep_goal_date,
+            sleep_unit = :sleep_unit,
+            goal_target_excercise_min = :goal_target_excercise_min,
+            goal_target_excercise_max = :goal_target_excercise_max,
+            target_excercise_goal_date = :target_excercise_goal_date,
+            excercise_unit = :excercise_unit`,
+        ExpressionAttributeValues: {
+            ':goal_glucose_f_min': patientGoals.goal_glucose_f_min,
+            ':goal_glucose_f_max': patientGoals.goal_glucose_f_max,
+            ':goal_glucose_pp_min': patientGoals.goal_glucose_pp_min,
+            ':goal_glucose_pp_max': patientGoals.goal_glucose_pp_max,
+            ':goal_glucose_r_min': patientGoals.goal_glucose_r_min,
+            ':goal_glucose_r_max': patientGoals.goal_glucose_r_max,
+            ':goal_glucose_unit': patientGoals.goal_glucose_unit,
+            ':goal_glucose_state': patientGoals.goal_glucose_state,
+            ':goal_bp_sys_min': patientGoals.goal_bp_sys_min,
+            ':goal_bp_sys_max': patientGoals.goal_bp_sys_max,
+            ':goal_bp_dis_min': patientGoals.goal_bp_dis_min,
+            ':goal_bp_dis_max': patientGoals.goal_bp_dis_max,
+            ':goal_bp_unit': patientGoals.goal_bp_unit,
+            ':goal_bp_state': patientGoals.goal_bp_state,
+            ':goal_hba1c_min': patientGoals.goal_hba1c_min,
+            ':goal_hba1c_max': patientGoals.goal_hba1c_max,
+            ':goal_hba1c_unit': patientGoals.goal_hba1c_unit,
+            ':goal_hba1c_state': patientGoals.goal_hba1c_state,
+            ':goal_max_target_weight': patientGoals.goal_max_target_weight,
+            ':goal_min_target_weight': patientGoals.goal_min_target_weight,
+            ':target_weight_goal_date': patientGoals.target_weight_goal_date,
+            ':weight_unit': patientGoals.weight_unit,
+            ':goal_target_sleep_min': patientGoals.goal_target_sleep_min,
+            ':goal_target_sleep_max': patientGoals.goal_target_sleep_max,
+            ':target_sleep_goal_date': patientGoals.target_sleep_goal_date,
+            ':sleep_unit': patientGoals.sleep_unit,
+            ':goal_target_excercise_min': patientGoals.goal_target_excercise_min,
+            ':goal_target_excercise_max': patientGoals.goal_target_excercise_max,
+            ':target_excercise_goal_date': patientGoals.target_excercise_goal_date,
+            ':excercise_unit': patientGoals.excercise_unit
+        }
+    };
+
+    try {
+        const data = await dynamoDB.update(params).promise();
+        console.log("Patient goal settings updated successfully:", data);
+        return data;
+    } catch (error) {
+        console.error("Error updating patient goal settings:", error);
+        throw error;
+    }
+}
+
+async function FSettings(fSettings) {
     const params = {
         TableName: 'fSetting-boonxvym5fasde4r33wkfzd7yq-dev',
         Item: fSettings
@@ -40,8 +137,60 @@ async function insertFsettings(fSettings) {
     }
 }
 
+async function updateFSettings(fSettings) {
+    const params = {
+        TableName: 'fSetting-boonxvym5fasde4r33wkfzd7yq-dev',
+        Key: { id: fSettings.id },
+        UpdateExpression: 'SET #isNotificationOn = :isNotificationOn, #type = :type, #weekDays = :weekDays, #time = :time, #extraData = :extraData',
+        ExpressionAttributeNames: {
+            '#isNotificationOn': 'isNotificationOn',
+            '#type': 'type',
+            '#weekDays': 'weekDays',
+            '#time': 'time',
+            '#extraData': 'extraData'
+        },
+        ExpressionAttributeValues: {
+            ':isNotificationOn': fSettings.isNotificationOn,
+            ':type': fSettings.type,
+            ':weekDays': fSettings.weekDays,
+            ':time': fSettings.time,
+            ':extraData': fSettings.extraData
+        }
+    };
 
-async function updateUserFrequency(userFrequency) {
+    try {
+        const data = await dynamoDB.update(params).promise();
+        console.log("fSettings updated successfully:", data);
+        return data;
+    } catch (error) {
+        console.error("Error updating fSettings:", error);
+        throw error;
+    }
+}
+
+async function getUserFrequency(uuuid){
+    const params = {
+        TableName: 'userFrequency-boonxvym5fasde4r33wkfzd7yq-dev',
+        Key: {
+            id: uuuid
+        }
+    };
+    try {
+        const userFrequencyResults = await dynamoDB.get(params).promise();
+        console.log("User frequency retrieved successfully:", userFrequencyResults);
+        if(userFrequencyResults && userFrequencyResults.Item){
+            return true;
+        }
+        else {
+            return false;
+        }
+    } catch (error) {
+        console.error("Error retrieving user frequency:", error);
+        throw error;
+    }
+}
+
+async function userFrequency(userFrequency) {
     const params = {
         tableName: 'userFrequency-boonxvym5fasde4r33wkfzd7yq-dev',
         payload: {
@@ -54,7 +203,30 @@ async function updateUserFrequency(userFrequency) {
         console.log("User frequency saved successfully:", userFrequencyResults);
         return userFrequencyResults;
     } catch (error) {
-        console.error("Error updating user frequency:", error);
+        console.error("Error saving user frequency:", error);
+        throw error;
+    }
+}
+async function updateUserFrequency(userFrequency){
+    const params = {
+        TableName: 'userFrequency-boonxvym5fasde4r33wkfzd7yq-dev',
+        Key: {
+            id: userFrequency.id
+        },
+        UpdateExpression: "set updatedAt = :updatedAt",
+        ExpressionAttributesNames: {
+            "#updatedAt": "updatedAt"
+        },
+        ExpressionAttributeValues: {
+            ":updatedAt": userFrequency.updatedAt 
+        }
+    }
+    try {
+        const updatedUserFeqquencyResult = await dynamoDB.update(params).promise();
+        console.log("Updated user frequency successfully ", updatedUserFeqquencyResult)
+        return updatedUserFeqquencyResult;
+    } catch (error) {
+        console.error("Error saving user frequency:", error);
         throw error;
     }
 }
@@ -92,7 +264,7 @@ async function insertFsettingWeight(mapper){
                                 fSettings.weekDays = weightSettings.weekDays;
                                 fSettings.time = weightSettings.time;
                                 // fSettings.extraData = JSON.stringify(bpSettings.extraData);
-                                await insertFsettings(fSettings);
+                                await FSettings(fSettings);
                             }
                         }
                     }
@@ -102,7 +274,7 @@ async function insertFsettingWeight(mapper){
     }
     console.log("fsettings for weight ", fSettings)
 }
-async function insertFsettingsHba1c(mapper) {
+async function FSettingsHba1c(mapper) {
     const uuuid = mapper.subject
     const randomSixDigitString = Math.floor(100000 + Math.random() * 900000).toString();
     let fSettings = {
@@ -135,7 +307,7 @@ async function insertFsettingsHba1c(mapper) {
                                 fSettings.weekDays = hba1cSettings.weekDays;
                                 fSettings.time = hba1cSettings.time;
                                 // fSettings.extraData = JSON.stringify(bpSettings.extraData);
-                                await insertFsettings(fSettings);
+                                await FSettings(fSettings);
                             }
                         }
                     }
@@ -179,7 +351,7 @@ async function insertFsettingGlucose(mapper) {
                                 fSettings.type = type;
                                 fSettings.weekDays = glucoseSettings.weekDays;
                                 fSettings.time = glucoseSettings.time;
-                                await insertFsettings(fSettings);
+                                await FSettings(fSettings);
                             }
                         }
                     }
@@ -221,7 +393,7 @@ async function insertFsettingBP(mapper) {
                                 fSettings.type = type;
                                 fSettings.weekDays = bpSettings.weekDays;
                                 fSettings.time = bpSettings.time;
-                                await insertFsettings(fSettings);
+                                await FSettings(fSettings);
                             }
                         }
                     }
@@ -231,17 +403,25 @@ async function insertFsettingBP(mapper) {
     }
     console.log("fsettings for blood pressure ", fSettings)
 }
-async function insertUserFrequency(mapper) {
+async function userFrequency(mapper) {
     const uuuid = mapper.subject
 
     let userFrequencySave = {
         id: "",
-        createdAt: ""
+        createdAt: "",
+        updatedAt: ""
     }
-    const currentDateAndTime = new Date().toISOString(); // Get current date and time in ISO format
+    const currentDateAndTime = new Date().toISOString(); 
+    const getUserFrequencys = await getUserFrequency(uuuid);
+    console.log(getUserFrequencys)
     userFrequencySave.id = uuuid
     userFrequencySave.createdAt = currentDateAndTime
-    await updateUserFrequency(userFrequencySave);
+    if (getUserFrequencys){
+        userFrequencySave.updatedAt = currentDateAndTime
+        await updateUserFrequency(userFrequencySave)
+    }else {
+        await userFrequency(userFrequencySave); 
+    }
     console.log("User frequency saved successfully:", userFrequencySave)
 }
 
@@ -342,7 +522,6 @@ async function extractAndSetPatientGoals(mapper) {
                     if (elements.valueString === "gluFastNormal" || elements.valueString === "glucPPNormal" || elements.valueString === "gluRandNormal") {
                         let type = "Blood sugar"
                         if (elements && elements.scheduledTiming) {
-                            console.log(elements.scheduledTiming)
                             let period = elements.scheduledTiming.repeat.period;
                             let periodUnit = elements.scheduledTiming.repeat.periodUnit;
                             let frequency = elements.scheduledTiming.repeat.frequency;
@@ -432,11 +611,16 @@ async function extractAndSetPatientGoals(mapper) {
             }
         }
     }
-
-    await updatePatientGoalSettings(patientGoals)
+    const getPatientGoalSettingsResult = await getPatientGoalSettings(patientGoals);
+    console.log(getPatientGoalSettingsResult)
+    if(getPatientGoalSettingsResult){
+        await updatePatientGoalSettings(patientGoals)
+    }else{
+        await patientGoalSettings(patientGoals)
+    }
     console.log("Patient goals saved ", patientGoals);
 }
-async function insertFsettingsExercise(mapper){
+async function FSettingsExercise(mapper){
     const uuuid = mapper.subject
     const randomSixDigitString = Math.floor(100000 + Math.random() * 900000).toString();
     let fSettings = {
@@ -469,7 +653,7 @@ async function insertFsettingsExercise(mapper){
                                 fSettings.weekDays = excerciseSettings.weekDays;
                                 fSettings.time = excerciseSettings.time;
                                 // fSettings.extraData = JSON.stringify(bpSettings.extraData);
-                                await insertFsettings(fSettings);
+                                await FSettings(fSettings);
                             }
                         }
                     }
@@ -480,7 +664,7 @@ async function insertFsettingsExercise(mapper){
     console.log("fsetting for exercise ", fSettings)
 }
 
-async function insertFsettingSleep(mapper){
+async function FSettingSleep(mapper){
     const uuuid = mapper.subject
     const randomSixDigitString = Math.floor(100000 + Math.random() * 900000).toString();
     let fSettings = {
@@ -513,7 +697,7 @@ async function insertFsettingSleep(mapper){
                                 fSettings.weekDays = sleepSettings.weekDays;
                                 fSettings.time = sleepSettings.time;
                                 // fSettings.extraData = JSON.stringify(bpSettings.extraData);
-                                await insertFsettings(fSettings);
+                                await FSettings(fSettings);
                             }
                         }
                     }
@@ -595,9 +779,9 @@ exports.handler = async (event, context) => {
 
             const patientGoalsresult = await extractAndSetPatientGoals(mapper);
             // console.log("Patient goals result is", patientGoalsresult);
-            const userFrequncyResult = await insertUserFrequency(mapper)
+            const userFrequncyResult = await userFrequency(mapper)
             // console.log("User frequency result is", userFrequncyResult);
-            const fsettingsHba1cResutl = await insertFsettingsHba1c(mapper)
+            const fsettingsHba1cResutl = await FSettingsHba1c(mapper)
             // console.log("Fsettings Hba1c result is", fsettingsHba1cResutl);
             const fsettingsBpResult = await insertFsettingBP(mapper)
             // console.log("Fsettings Bp result is", fsettingsBpResult);
@@ -605,9 +789,9 @@ exports.handler = async (event, context) => {
             // console.log("Fsettings Glucose result is", fsettingsGlucoseResult);
             const fsettingsWeightReuslt = await insertFsettingWeight(mapper)
             // console.log("Fsettings Weight result is", fsettingsWeightReuslt);
-            const fsettingsExcersiseResult = await insertFsettingsExercise(mapper)
+            const fsettingsExcersiseResult = await FSettingsExercise(mapper)
             // console.log("Fsettings Exercise result is", fsettingsExcersiseResult);
-            const fsettingsleepResult = await insertFsettingSleep(mapper)
+            const fsettingsleepResult = await FSettingSleep(mapper)
             // console.log("Fsettings Sleep result is", fsettingsleepResult);
             // console.log("mapper is", JSON.stringify(mapper, null, 2));
         } else {
