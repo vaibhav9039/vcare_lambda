@@ -6,10 +6,11 @@ const lambda = new AWS.Lambda();
 const uuidcrypto = require("crypto");
 const { getSettings } = require('./settings');
 const { v4: uuidv4 } = require('uuid');
+const config = require('../utils/helper')
 
 async function patientGoalSettings(patientGoals) {
     const params = {
-        TableName: 'patientGoalSettings-boonxvym5fasde4r33wkfzd7yq-dev',
+        TableName: config.patientGoalSettingstable,
         Item: patientGoals,
     }
 
@@ -24,7 +25,7 @@ async function patientGoalSettings(patientGoals) {
 }
 async function getPatientGoalSettings(patientGoals){
     const params = {
-        TableName: 'patientGoalSettings-boonxvym5fasde4r33wkfzd7yq-dev',
+        TableName: config.patientGoalSettingstable,
         Key: { id: patientGoals.id },
     }
 
@@ -44,7 +45,7 @@ async function getPatientGoalSettings(patientGoals){
 
 async function updatePatientGoalSettings(patientGoals){
     const params = {
-        TableName: 'patientGoalSettings-boonxvym5fasde4r33wkfzd7yq-dev',
+        TableName: config.patientGoalSettingstable,
         Key: { id: patientGoals.id },
         UpdateExpression: `set 
             goal_glucose_f_min = :goal_glucose_f_min,
@@ -123,7 +124,7 @@ async function updatePatientGoalSettings(patientGoals){
 
 async function FSettings(fSettings) {
     const params = {
-        TableName: 'fSetting-boonxvym5fasde4r33wkfzd7yq-dev',
+        TableName: config.fsettingstable,
         Item: fSettings
     };
 
@@ -138,7 +139,7 @@ async function FSettings(fSettings) {
 }
 async function getFsettings(fSettings){
     const params = {
-        TableName: 'fSetting-boonxvym5fasde4r33wkfzd7yq-dev',
+        TableName: config.fsettingstable,
         Key: {
             id: fSettings.id
         }
@@ -159,7 +160,7 @@ async function getFsettings(fSettings){
 
 async function updateFSettings(fSettings) {
     const params = {
-        TableName: 'fSetting-boonxvym5fasde4r33wkfzd7yq-dev',
+        TableName: config.fsettingstable,
         Key: { id: fSettings.id },
         UpdateExpression: 'SET #isNotificationOn = :isNotificationOn, #type = :type, #weekDays = :weekDays, #time = :time, #extraData = :extraData',
         ExpressionAttributeNames: {
@@ -190,7 +191,7 @@ async function updateFSettings(fSettings) {
 
 async function getUserFrequency(uuuid){
     const params = {
-        TableName: 'userFrequency-boonxvym5fasde4r33wkfzd7yq-dev',
+        TableName: config.userFrequencytable,
         Key: {
             id: uuuid
         }
@@ -212,9 +213,9 @@ async function getUserFrequency(uuuid){
 
 async function userFrequency(userFrequency) {
     const params = {
-        tableName: 'userFrequency-boonxvym5fasde4r33wkfzd7yq-dev',
+        tableName: config.userFrequencytable,
         payload: {
-            TableName: 'userFrequency-boonxvym5fasde4r33wkfzd7yq-dev',
+            TableName: config.userFrequencytable,
             Item: userFrequency
         }
     };
@@ -229,7 +230,7 @@ async function userFrequency(userFrequency) {
 }
 async function updateUserFrequency(userFrequency){
     const params = {
-        TableName: 'userFrequency-boonxvym5fasde4r33wkfzd7yq-dev',
+        TableName: config.userFrequencytable,
         Key: {
             id: userFrequency.id
         },
