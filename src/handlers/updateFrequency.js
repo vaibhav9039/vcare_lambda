@@ -459,11 +459,11 @@ async function userFrequency(mapper) {
     const getUserFrequencys = await getUserFrequency(uuuid);
     console.log(getUserFrequencys)
     userFrequencySave.id = uuuid
-    userFrequencySave.createdAt = currentDateAndTime
     if (getUserFrequencys){
         userFrequencySave.updatedAt = currentDateAndTime
         await updateUserFrequency(userFrequencySave)
     }else {
+        userFrequencySave.createdAt = currentDateAndTime
         await userFrequency(userFrequencySave); 
     }
     console.log("User frequency saved successfully:", userFrequencySave)
