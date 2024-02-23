@@ -2,7 +2,12 @@ service: api
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs20.x
+
+  environment: 
+    PATIENT_GOAL_SETTINGS_TABLE: patientGoalSettings-boonxvym5fasde4r33wkfzd7yq-dev
+    F_SETTING_TABLE: fSetting-boonxvym5fasde4r33wkfzd7yq-dev
+    USER_FREQUENCY_TABLE: userFrequency-boonxvym5fasde4r33wkfzd7yq-dev
 
 custom:
   serverless-offline:

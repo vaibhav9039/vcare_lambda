@@ -136,6 +136,26 @@ async function FSettings(fSettings) {
         throw error;
     }
 }
+async function getFsettings(fSettings){
+    const params = {
+        TableName: 'fSetting-boonxvym5fasde4r33wkfzd7yq-dev',
+        Key: {
+            id: fSettings.id
+        }
+    }
+    try {
+        const data = await dynamoDB.get(params).promise();
+        console.log("Fsettings settings retrieved successfully:", data);
+        if (data && data.Item) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.error("Error retrieving fsettings:", error);
+        throw error;
+    }
+}
 
 async function updateFSettings(fSettings) {
     const params = {
@@ -264,7 +284,13 @@ async function insertFsettingWeight(mapper){
                                 fSettings.weekDays = weightSettings.weekDays;
                                 fSettings.time = weightSettings.time;
                                 // fSettings.extraData = JSON.stringify(bpSettings.extraData);
-                                await FSettings(fSettings);
+                                const getFsettingsresult = await getFsettings(fSettings)
+                                console.log(getFsettingsresult)
+                                if(getFsettingsresult){
+                                    await updateFSettings(fSettings)
+                                }else{
+                                    await FSettings(fSettings);
+                                }
                             }
                         }
                     }
@@ -307,7 +333,13 @@ async function FSettingsHba1c(mapper) {
                                 fSettings.weekDays = hba1cSettings.weekDays;
                                 fSettings.time = hba1cSettings.time;
                                 // fSettings.extraData = JSON.stringify(bpSettings.extraData);
-                                await FSettings(fSettings);
+                                const getFsettingsresult = await getFsettings(fSettings)
+                                console.log(getFsettingsresult)
+                                if (getFsettingsresult) {
+                                    await updateFSettings(fSettings)
+                                } else {
+                                    await FSettings(fSettings);
+                                }
                             }
                         }
                     }
@@ -351,7 +383,13 @@ async function insertFsettingGlucose(mapper) {
                                 fSettings.type = type;
                                 fSettings.weekDays = glucoseSettings.weekDays;
                                 fSettings.time = glucoseSettings.time;
-                                await FSettings(fSettings);
+                                const getFsettingsresult = await getFsettings(fSettings)
+                                console.log(getFsettingsresult)
+                                if (getFsettingsresult) {
+                                    await updateFSettings(fSettings)
+                                } else {
+                                    await FSettings(fSettings);
+                                }
                             }
                         }
                     }
@@ -393,7 +431,13 @@ async function insertFsettingBP(mapper) {
                                 fSettings.type = type;
                                 fSettings.weekDays = bpSettings.weekDays;
                                 fSettings.time = bpSettings.time;
-                                await FSettings(fSettings);
+                                const getFsettingsresult = await getFsettings(fSettings)
+                                console.log(getFsettingsresult)
+                                if (getFsettingsresult) {
+                                    await updateFSettings(fSettings)
+                                } else {
+                                    await FSettings(fSettings);
+                                }
                             }
                         }
                     }
@@ -653,7 +697,13 @@ async function FSettingsExercise(mapper){
                                 fSettings.weekDays = excerciseSettings.weekDays;
                                 fSettings.time = excerciseSettings.time;
                                 // fSettings.extraData = JSON.stringify(bpSettings.extraData);
-                                await FSettings(fSettings);
+                                const getFsettingsresult = await getFsettings(fSettings)
+                                console.log(getFsettingsresult)
+                                if (getFsettingsresult) {
+                                    await updateFSettings(fSettings)
+                                } else {
+                                    await FSettings(fSettings);
+                                }
                             }
                         }
                     }
@@ -697,7 +747,13 @@ async function FSettingSleep(mapper){
                                 fSettings.weekDays = sleepSettings.weekDays;
                                 fSettings.time = sleepSettings.time;
                                 // fSettings.extraData = JSON.stringify(bpSettings.extraData);
-                                await FSettings(fSettings);
+                                const getFsettingsresult = await getFsettings(fSettings)
+                                console.log(getFsettingsresult)
+                                if (getFsettingsresult) {
+                                    await updateFSettings(fSettings)
+                                } else {
+                                    await FSettings(fSettings);
+                                }
                             }
                         }
                     }
